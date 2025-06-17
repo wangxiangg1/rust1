@@ -1,17 +1,17 @@
-use diesel::pg::PgConnection;
+use diesel::sqlite::SqliteConnection;
 
 use diesel::Connection;
 use diesel::connection::SimpleConnection;
 use dotenv::dotenv;
 use std::env;
 
-pub fn establish_connection() -> PgConnection {
+pub fn establish_connection() -> SqliteConnection {
     dotenv().ok();
 
     let database_url = env::var("DATABASE_URL")
         .expect("DATABASE_URL must be set in .env file");
 
-    let mut conn = PgConnection::establish(&database_url)
+    let mut conn = SqliteConnection::establish(&database_url)
         .unwrap_or_else(|_| panic!("Error connecting to {}", database_url));
 
     // 在首次连接时执行一次性迁移
@@ -21,22 +21,22 @@ pub fn establish_connection() -> PgConnection {
 }
 
 /// 运行简化版迁移：若表不存在则创建
-pub fn run_migrations(conn: &mut PgConnection) {
+pub fn run_migrations(conn: &mut SqliteConnection) {
     let sql = r#"
         CREATE TABLE IF NOT EXISTS users (
-            id SERIAL PRIMARY KEY,
-            username VARCHAR NOT NULL UNIQUE,
-            password_hash VARCHAR NOT NULL
+            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            username TEXT NOT NULL UNIQUE,
+            password_hash TEXT NOT NULL
         );
         CREATE TABLE IF NOT EXISTS credentials (
-            id SERIAL PRIMARY KEY,
-            email VARCHAR NOT NULL,
+            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
+            email TEXT NOT NULL,
             token TEXT NOT NULL
         );
         CREATE TABLE IF NOT EXISTS api_tokens (
-            id SERIAL PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL,
             token TEXT NOT NULL,
-            created_at TIMESTAMPTZ DEFAULT NOW()
+            created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
         );
     "#;
 

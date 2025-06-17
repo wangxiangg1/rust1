@@ -15,7 +15,7 @@ struct ChatMessage {
 }
 
 #[derive(Deserialize)]
-struct ChatCompletionRequest {
+pub struct ChatCompletionRequest {
     model: String,
     messages: Vec<ChatMessage>,
     stream: Option<bool>,

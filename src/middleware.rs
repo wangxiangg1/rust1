@@ -1,6 +1,7 @@
 use crate::auth::validate_token;
 use actix_web::{dev::ServiceRequest, Error};
 use actix_web_httpauth::{extractors::bearer::BearerAuth, middleware::HttpAuthentication};
+use std::future::Future;
 
 /// Bearer 认证验证器
 pub async fn validator(
@@ -15,6 +16,8 @@ pub async fn validator(
 }
 
 // Helper to create middleware instance
-pub fn jwt() -> HttpAuthentication<BearerAuth> {
-    HttpAuthentication::bearer(validator)
+type ValidatorFuture = std::pin::Pin<Box<dyn Future<Output = Result<ServiceRequest, (Error, ServiceRequest)>> + 'static>>;
+
+pub fn jwt() -> HttpAuthentication<BearerAuth, fn(ServiceRequest, BearerAuth) -> ValidatorFuture> {
+    HttpAuthentication::bearer(|req, creds| Box::pin(validator(req, creds)))
 }
