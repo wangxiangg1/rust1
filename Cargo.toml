@@ -1,0 +1,31 @@
+[package]
+name = "atlassian-rust-docker"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+actix-web = "4.0"
+tokio = { version = "1.0", features = ["full"] }
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+diesel = { version = "2.1", features = ["postgres", "r2d2"] }
+# HTTP client for proxying requests
+reqwest = { version = "0.12", features = ["json", "stream"] }
+futures-util = "0.3"
+dotenv = "0.15"
+config = "0.13"
+anyhow = "1.0"
+thiserror = "1.0"
+jsonwebtoken = "8.0"
+chrono = "0.4"
+env_logger = "0.10"
+actix-web-httpauth = "0.8"
+argon2 = "0.5"
+password-hash = "0.5"
+rand_core = "0.6"
+rand = { version = "0.8", features = ["std"] }
+diesel_migrations = "2.0"
+uuid = { version = "1", features = ["v4"] }
+tera = "1.19"
+actix-files = "0.6"
+log = "0.4"

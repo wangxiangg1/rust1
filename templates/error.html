@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+
+{% block title %}错误{% endblock title %}
+
+{% block content %}
+<h2>发生错误</h2>
+<p class="error">{{ error }}</p>
+<a href="/admin/login">返回登录</a>
+{% endblock content %}

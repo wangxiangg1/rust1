@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}登录{% endblock title %}
+
+{% block content %}
+<h2>管理员登录</h2>
+<form method="post" action="/admin/login">
+    <label for="username">用户名:</label>
+    <input id="username" name="username" required>
+    <label for="password">密码:</label>
+    <input id="password" type="password" name="password" required>
+    <button type="submit">登录</button>
+</form>
+{% if error %}<p class="error">{{ error }}</p>{% endif %}
+{% endblock content %}
