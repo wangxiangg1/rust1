@@ -1,5 +1,5 @@
 use diesel::pg::PgConnection;
-use diesel::r2d2::{self, ConnectionManager};
+
 use diesel::Connection;
 use diesel::connection::SimpleConnection;
 use dotenv::dotenv;

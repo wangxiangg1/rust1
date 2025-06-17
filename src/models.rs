@@ -1,5 +1,5 @@
 use diesel::prelude::*;
-use serde::{Serialize, Deserialize};
+use serde::Serialize;
 use crate::schema::{users, credentials, api_tokens};
 
 #[derive(Queryable, Identifiable, Serialize)]

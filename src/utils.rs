@@ -5,7 +5,7 @@ use argon2::{
 };
 use rand::{distributions::Alphanumeric, Rng};
 use rand_core::OsRng;
-use std::error::Error as StdError;
+
 
 /// 对给定明文密码生成 Argon2 哈希
 pub fn hash_password(password: &str) -> Result<String> {

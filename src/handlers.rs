@@ -3,9 +3,9 @@ use futures_util::StreamExt;
 use reqwest::Client;
 use serde::{Deserialize, Serialize};
 use serde_json::json;
-use std::sync::Arc;
-use tokio::sync::Mutex;
-use crate::{services, auth};
+
+
+use crate::services;
 
 // Structures for OpenAI compatible requests
 #[derive(Serialize, Deserialize, Clone)]
